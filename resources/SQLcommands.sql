@@ -32,3 +32,5 @@ CREATE TABLE solution (
     FOREIGN KEY (exercise_id) REFERENCES exercise(id),
     FOREIGN KEY (users_id) REFERENCES users(id)
 );
+
+mysqldump -h localhost -u root -p szkola_programowania > szkola_programowania_backup.sql
