@@ -20,7 +20,7 @@ public class UserDao {
     public User create(User user) {
         try (Connection conn = DBUtil.createConnection()) {
             PreparedStatement statement = conn.prepareStatement(CREATE_QUERY);
-            statement.setString(1, user.setUserName());
+            statement.setString(1, user.getUserName());
             statement.setString(2, user.getEmail());
             statement.setString(3, user.getPassword());
             statement.setInt(4, user.getGroupId());
@@ -60,7 +60,7 @@ public class UserDao {
     public void update(User user) {
         try (Connection conn = DBUtil.createConnection()) {
             PreparedStatement statement = conn.prepareStatement(UPADET_QUERY);
-            statement.setString(1, user.setUserName());
+            statement.setString(1, user.getUserName());
             statement.setString(2, user.getEmail());
             statement.setString(3, user.getPassword());
             statement.setInt(4, user.getGroupId());
@@ -98,6 +98,7 @@ public class UserDao {
             return users;
         } catch (SQLException ex) {
             ex.printStackTrace();
+            return null;
         }
     }
 
