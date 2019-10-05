@@ -1,15 +1,15 @@
 package pl.coderslab.model;
 
-public class Group {
+public class UserGroup {
 
     private int id;
     private String name;
 
     //podobnie jak w User, bezparametrowy konstrutor do pobierania grupy z bazy
-    public Group() {}
+    public UserGroup() {}
 
     //konstruktor do tworzenia nowej grupy z palca
-    public Group(String name) {
+    public UserGroup(String name) {
         this.name = name;
     }
 

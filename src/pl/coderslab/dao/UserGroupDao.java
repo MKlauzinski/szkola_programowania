@@ -1,6 +1,6 @@
 package pl.coderslab.dao;
 
-import pl.coderslab.model.Group;
+import pl.coderslab.model.UserGroup;
 import pl.coderslab.utils.DBUtil;
 
 import java.sql.Connection;
@@ -9,40 +9,40 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
 
-public class GroupDao {
+public class UserGroupDao {
 
     private static final String CREATE_QUERY = "INSERT INTO user_group (name) VALUES (?)";
     private static final String READ_BY_ID_QUERY = "SELECT * FROM user_group WHERE id = ?";
-    private static final String UPADET_QUERY = "UPDATE user_group SET name = ? WHERE id = ?";
+    private static final String UPDATE_QUERY = "UPDATE user_group SET name = ? WHERE id = ?";
     private static final String DELETE_QUERY = "DELETE FROM user_group WHERE id = ?";
     private static final String FIND_ALL_QUERY = "SELECT * FROM user_group";
 
-    public Group create(Group group) {
+    public UserGroup create(UserGroup userGroup) {
         try (Connection conn = DBUtil.createConnection()) {
             PreparedStatement statement = conn.prepareStatement(CREATE_QUERY);
-            statement.setString(1, group.getName());
+            statement.setString(1, userGroup.getName());
             statement.executeUpdate();
             ResultSet rs = statement.getGeneratedKeys();
             if (rs.next()) {
-                group.setId(rs.getInt(1));
+                userGroup.setId(rs.getInt(1));
             }
-            return group;
+            return userGroup;
         } catch (SQLException ex) {
             ex.printStackTrace();
             return null;
         }
     }
 
-    public Group read(int id) {
+    public UserGroup read(int id) {
         try (Connection conn = DBUtil.createConnection()) {
              PreparedStatement statement = conn.prepareStatement(READ_BY_ID_QUERY);
              statement.setInt(1, id);
              ResultSet rs = statement.executeQuery();
              if (rs.next()) {
-                 Group group = new Group();
-                 group.setId(rs.getInt("id"));
-                 group.setName(rs.getString("name"));
-                 return group;
+                 UserGroup userGroup = new UserGroup();
+                 userGroup.setId(rs.getInt("id"));
+                 userGroup.setName(rs.getString("name"));
+                 return userGroup;
              }
              return null;
         } catch (SQLException ex) {
@@ -51,11 +51,11 @@ public class GroupDao {
         }
     }
 
-    public void update(Group group) {
+    public void update(UserGroup userGroup) {
         try (Connection conn = DBUtil.createConnection()) {
-            PreparedStatement statement = conn.prepareStatement(UPADET_QUERY);
-            statement.setString(1, group.getName());
-            statement.setInt(2, group.getId());
+            PreparedStatement statement = conn.prepareStatement(UPDATE_QUERY);
+            statement.setString(1, userGroup.getName());
+            statement.setInt(2, userGroup.getId());
             statement.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -72,27 +72,27 @@ public class GroupDao {
         }
     }
 
-    public Group[] findAll() {
+    public UserGroup[] findAll() {
         try (Connection conn = DBUtil.createConnection()) {
-            Group[] groups = new Group[0];
+            UserGroup[] userGroups = new UserGroup[0];
             PreparedStatement statement = conn.prepareStatement(FIND_ALL_QUERY);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
-                Group group = new Group();
-                group.setId(rs.getInt("id"));
-                group.setName(rs.getString("name"));
-                addToArray(group, groups);
+                UserGroup userGroup = new UserGroup();
+                userGroup.setId(rs.getInt("id"));
+                userGroup.setName(rs.getString("name"));
+                addToArray(userGroup, userGroups);
             }
-            return groups;
+            return userGroups;
         } catch (SQLException ex) {
             ex.printStackTrace();
             return null;
         }
     }
 
-    private Group[] addToArray(Group group, Group[] groups) {
-        Group[] tmp = Arrays.copyOf(groups, groups.length+1);
-        tmp[groups.length] = group;
+    private UserGroup[] addToArray(UserGroup userGroup, UserGroup[] userGroups) {
+        UserGroup[] tmp = Arrays.copyOf(userGroups, userGroups.length+1);
+        tmp[userGroups.length] = userGroup;
         return tmp;
     }
 }

@@ -13,7 +13,7 @@ public class UserDao {
 
     private static final String CREATE_QUERY = "INSERT INTO users (username, email, password, group_id) VALUES (?, ?, ?, ?)";
     private static final String READ_BY_ID_QUERY = "SELECT * FROM users WHERE id = ?";
-    private static final String UPADET_QUERY = "UPDATE users SET username = ?, email = ?, password = ?, group_id = ? WHERE id = ?";
+    private static final String UPDATE_QUERY = "UPDATE users SET username = ?, email = ?, password = ?, group_id = ? WHERE id = ?";
     private static final String DELETE_QUERY = "DELETE FROM users WHERE id = ?";
     private static final String FIND_ALL_QUERY = "SELECT * FROM users";
 
@@ -59,7 +59,7 @@ public class UserDao {
 
     public void update(User user) {
         try (Connection conn = DBUtil.createConnection()) {
-            PreparedStatement statement = conn.prepareStatement(UPADET_QUERY);
+            PreparedStatement statement = conn.prepareStatement(UPDATE_QUERY);
             statement.setString(1, user.getUserName());
             statement.setString(2, user.getEmail());
             statement.setString(3, user.getPassword());
