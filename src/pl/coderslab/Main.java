@@ -5,5 +5,6 @@ public class Main {
 
         System.out.println("póki co nic, ale chyba coś potem będzie");
 
+
     }
 }
